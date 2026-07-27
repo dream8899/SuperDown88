@@ -1,9 +1,9 @@
 ---
-name: superdownload88
+name: superdown88
 description: Safely and efficiently archive public social-media videos with yt-dlp, prioritizing Instagram and supporting TikTok, YouTube/Shorts, and other supported sites. Use for one video, creator/profile/channel updates, cross-platform channel registries, browser-assisted URL discovery, incremental no-duplicate downloads, verification, or recovery from extractor changes across macOS, Linux, Windows, Codex, CLI, Computer Use, Chrome/CDP, Playwright, Kimi WebBridge, and manual workflows.
 ---
 
-# SuperDownload88
+# SuperDown88
 
 Use `yt-dlp` for media transfer. Use all browser tools only to discover canonical public
 post URLs. Prefer public, logged-out downloads; login state is never part of the transfer path.

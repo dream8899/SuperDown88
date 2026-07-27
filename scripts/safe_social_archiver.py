@@ -564,7 +564,7 @@ def check_latest_release() -> dict[str, Any]:
     current = current_result.stdout.strip()
     request = urllib.request.Request(
         "https://api.github.com/repos/yt-dlp/yt-dlp/releases/latest",
-        headers={"Accept": "application/vnd.github+json", "User-Agent": f"SuperDownload88/{SCRIPT_VERSION}"},
+        headers={"Accept": "application/vnd.github+json", "User-Agent": f"SuperDown88/{SCRIPT_VERSION}"},
     )
     try:
         with urllib.request.urlopen(request, timeout=20) as response:
