@@ -1,0 +1,4 @@
+interface:
+  display_name: "SuperDownload88"
+  short_description: "跨平台、安全、可增量复现的 yt-dlp 社媒归档"
+  default_prompt: "使用 $superdownload88，在登录仅用于发现的边界下安全增量归档公开社媒视频。"
