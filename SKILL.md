@@ -137,6 +137,20 @@ When a platform changes, stop, run `doctor`, update yt-dlp only with approval, r
 tests, then one public dry run and one real public item. Patch only the remaining proven
 need; do not reproduce extractor logic or make iGram/private APIs a dependency.
 
+Every Skill update must be published and synchronized to all existing local installations
+before the task is considered complete. Run the local sync scanner after committing; it
+updates only directories whose frontmatter is `name: superdown88`, never deletes target
+files, and accepts additional Agent roots explicitly:
+
+```bash
+python3 scripts/sync_local_installs.py
+python3 scripts/sync_local_installs.py --root /path/to/another/agent/skills
+git push
+```
+
+If the scanner reports no targets, record that the current installation is the only local
+copy. Do not silently create unrequested duplicate installations.
+
 ```bash
 python3 scripts/test_safe_social_archiver.py
 python3 /Users/solo/.codex/skills/.system/skill-creator/scripts/quick_validate.py .

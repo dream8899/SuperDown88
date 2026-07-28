@@ -117,6 +117,19 @@ CLI Agent 应输出一条明确的人工交接指令：让用户在现有浏览�
 规范 URL 数、唯一媒体 ID 数、试批大小、yt-dlp 版本、成功/失败分类和停止原因。
 不要记录会话密钥。另一个 Agent 应仅凭这些文件和本 Skill 接续任务。
 
+## 本机副本同步
+
+Skill 维护者提交更新后，先在当前仓库运行：
+
+```bash
+python3 scripts/sync_local_installs.py
+```
+
+脚本扫描 `~/.codex/skills` 与 `~/.agents/skills` 中已存在且 frontmatter 为
+`name: superdown88` 的副本，只复制变更文件，不删除目标内容。其他 Agent 根目录用
+重复的 `--root` 指定；没有发现目标时表示当前机器只有一个安装副本。完成本机同步后
+再推送 GitHub，避免出现“远端已更新但本机 Agent 仍使用旧 Skill”的分叉。
+
 ## 已验证的 Instagram 归档复盘
 
 在大型已有归档上先执行本地盘点，再访问主页：
