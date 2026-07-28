@@ -116,3 +116,18 @@ CLI Agent 应输出一条明确的人工交接指令：让用户在现有浏览�
 每轮在账号 README 或批次日志记录：Agent/工具名称与版本、发现档位、原始发现文件、
 规范 URL 数、唯一媒体 ID 数、试批大小、yt-dlp 版本、成功/失败分类和停止原因。
 不要记录会话密钥。另一个 Agent 应仅凭这些文件和本 Skill 接续任务。
+
+## 已验证的 Instagram 归档复盘
+
+在大型已有归档上先执行本地盘点，再访问主页：
+
+```bash
+python3 Video_Download/reconcile_instagram_metadata.py --root Video_Download/instagram
+python3 Video_Download/update_creator_registry.py --root Video_Download/instagram
+```
+
+盘点只读取每个博主目录顶层 MP4，生成含规范地址的 12 列 metadata；短码识别会处理
+账号名前缀和 `__h264-aac`/`__fdash` 后缀，metadata 按日期倒序。`--verify` 是显式慢速
+ffprobe 模式。随后把 metadata 作为 `--known` 输入，遇到首个已知短码停止；这条路径已
+验证可避免重复下载，并能被 CLI、Codex、Chrome/CDP、Computer Use 和 Kimi WebBridge
+分别复现。

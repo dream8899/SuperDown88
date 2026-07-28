@@ -36,9 +36,15 @@ instantiate [references/task-template.md](references/task-template.md).
 5. Compare IDs against `metadata.tsv`, `.download-archive.txt`, verified filenames, and
    the registry. Enqueue only new IDs, newest first; for Instagram stop discovery at the
    first known shortcode unless explicitly backfilling.
-6. Download a five-item pilot. Expand only after all five verify; then run serial batches
+6. For an existing Instagram archive, scan only `CREATOR/*.mp4` directly under the creator
+   directory. Ignore every child directory (remix, publishing, quarantine, review). Use
+   `Video_Download/reconcile_instagram_metadata.py` to normalize filename-derived IDs,
+   remove creator-name prefixes, strip post-processing suffixes such as `__h264-aac`,
+   and rebuild metadata in newest-first order. Move duplicate files to quarantine; never
+   delete them.
+7. Download a five-item pilot. Expand only after all five verify; then run serial batches
    of at most 20. Stop the batch on its first error.
-7. Verify files with `ffprobe`, update creator records plus the channel registry, classify
+8. Verify files with `ffprobe`, update creator records plus the channel registry, classify
    inaccessible items, and preserve the source/state/logs for the next Agent.
 
 ## Safety and pacing
@@ -82,6 +88,17 @@ Run the local registry scanner after every batch:
 python3 Video_Download/update_creator_registry.py --root Video_Download/instagram
 ```
 
+Reconcile an existing Instagram channel before an incremental visit. The fast default
+uses non-empty top-level files for inventory; add `--verify` when a full ffprobe pass is
+worth the extra time:
+
+```bash
+python3 Video_Download/reconcile_instagram_metadata.py \
+  --root Video_Download/instagram
+python3 Video_Download/update_creator_registry.py \
+  --root Video_Download/instagram
+```
+
 ## Commands
 
 Check tools:
@@ -109,8 +126,10 @@ uv run --with 'instaloader==4.15.2' python3 scripts/safe_social_archiver.py \
   --max-items 5 --output sources.txt
 ```
 
-Use `social_batch_downloader.py` only when its documented four-column Instagram manifest
-already exists; otherwise retain the portable canonical URL list and use the wrapper above.
+`metadata.tsv` may use the 12-column form with `视频地址`; the local batch downloader accepts
+both that form and the legacy four-column form. Prefer canonical URL fields when present.
+Use `social_batch_downloader.py` only for a bounded manifest batch; otherwise retain the
+portable canonical URL list and use the wrapper above.
 
 ## Maintenance
 
