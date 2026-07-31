@@ -48,6 +48,8 @@ python3 /Users/solo/.codex/skills/superdown88/scripts/supermedia_console.py \
 ```
 
 默认地址为 `http://127.0.0.1:8765`。关闭运行此命令的终端，管理台即停止；端口占用时添加 `--port 8766`。
+macOS 的“打开资产中心”启动器会先复用已运行的 `8765` 服务并直接打开浏览器，不会再启动
+第二个服务。
 
 ## HOLD 血缘处理
 
