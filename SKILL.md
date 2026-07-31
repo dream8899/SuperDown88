@@ -46,6 +46,11 @@ instantiate [references/task-template.md](references/task-template.md).
    of at most 20. Stop the batch on its first error.
 8. Verify files with `ffprobe`, update creator records plus the channel registry, classify
    inaccessible items, and preserve the source/state/logs for the next Agent.
+9. After every verified batch, update the shared SuperMedia catalog. Read
+   [references/media-lineage-contract.md](references/media-lineage-contract.md), then run
+   `scripts/media_asset_catalog.py --root VIDEO_DOWNLOAD_ROOT sync --platform CHANNEL
+   --sources-only`. The platform-native media ID is the permanent `source_key`; filenames
+   and sequence numbers are not identity.
 
 ## Safety and pacing
 
@@ -86,7 +91,13 @@ Run the local registry scanner after every batch:
 
 ```bash
 python3 Video_Download/update_creator_registry.py --root Video_Download/instagram
+python3 scripts/media_asset_catalog.py --root Video_Download sync \
+  --platform instagram --sources-only
 ```
+
+The source inventory still scans only top-level creator files. The shared catalog may scan
+child directories separately to recover derivative lineage; those files never increase the
+downloaded-source count.
 
 Reconcile an existing Instagram channel before an incremental visit. The fast default
 uses non-empty top-level files for inventory; add `--verify` when a full ffprobe pass is
@@ -153,5 +164,6 @@ copy. Do not silently create unrequested duplicate installations.
 
 ```bash
 python3 scripts/test_safe_social_archiver.py
+python3 scripts/test_media_asset_catalog.py
 python3 /Users/solo/.codex/skills/.system/skill-creator/scripts/quick_validate.py .
 ```
