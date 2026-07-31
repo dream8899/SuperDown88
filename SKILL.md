@@ -162,8 +162,24 @@ git push
 If the scanner reports no targets, record that the current installation is the only local
 copy. Do not silently create unrequested duplicate installations.
 
+## 本地资产中心（无需 Agent）
+
+下载、Remix 或上传批次结束后，可用 `scripts/supermedia_console.py` 更新同一份
+SuperMedia SQLite 账本。它会自动发现渠道、创建数据库备份、加独占锁、同步、审计并
+导出报表；不会下载、上传或读取登录态：
+
+```bash
+python3 scripts/supermedia_console.py --root "/absolute/Video_Download" update
+python3 scripts/supermedia_console.py --root "/absolute/Video_Download" serve --open
+```
+
+浏览器管理台固定绑定 `127.0.0.1`，仅可执行更新和人工补全已核验的 HOLD 血缘。
+完整需求见 [references/supermedia-asset-center-requirements.md](references/supermedia-asset-center-requirements.md)，
+跨系统使用方式见 [references/supermedia-asset-center-guide.md](references/supermedia-asset-center-guide.md)。
+
 ```bash
 python3 scripts/test_safe_social_archiver.py
 python3 scripts/test_media_asset_catalog.py
+python3 scripts/test_supermedia_console.py
 python3 /Users/solo/.codex/skills/.system/skill-creator/scripts/quick_validate.py .
 ```
