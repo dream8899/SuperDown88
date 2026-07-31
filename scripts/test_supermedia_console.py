@@ -33,6 +33,7 @@ class SuperMediaConsoleTests(unittest.TestCase):
         self.assertEqual(json.loads(last_update.read_text(encoding="utf-8"))["platforms"], ["instagram"])
         page = dashboard(self.root)
         self.assertEqual(page["summary"]["counts"]["creators"], 1)
+        self.assertEqual(page["summary"]["counts"]["present_assets"], 1)
         self.assertEqual(page["creators"][0]["source_count"], 1)
 
 

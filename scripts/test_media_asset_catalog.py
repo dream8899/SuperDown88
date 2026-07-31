@@ -36,6 +36,7 @@ class MediaAssetCatalogTests(unittest.TestCase):
         self.assertEqual(stats["sources"], 1)
         self.assertEqual(stats["source_assets"], 1)
         self.assertEqual(stats["derivative_assets"], 1)
+        self.assertEqual(self.catalog.summary()["counts"]["present_assets"], 2)
         manifest = self.root / "batch.json"
         file_path = self.root / "instagram" / "maker" / "remix_20260731" / "ABC123__r01.mp4"
         manifest.write_text(

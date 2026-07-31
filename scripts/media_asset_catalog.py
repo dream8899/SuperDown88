@@ -1125,6 +1125,15 @@ class Catalog:
             "events",
         ):
             counts[table] = self.connection.execute(f"SELECT COUNT(*) AS n FROM {table}").fetchone()["n"]
+        # `assets` is an immutable historical ledger: a deleted file may still be
+        # needed to explain an old publication.  Keep it, but expose the live
+        # inventory separately so a dashboard never mistakes history for disk state.
+        counts["present_assets"] = self.connection.execute(
+            "SELECT COUNT(DISTINCT asset_id) AS n FROM asset_locations WHERE present=1"
+        ).fetchone()["n"]
+        counts["missing_asset_locations"] = self.connection.execute(
+            "SELECT COUNT(*) AS n FROM asset_locations WHERE present=0"
+        ).fetchone()["n"]
         by_account = [
             dict(row)
             for row in self.connection.execute(
