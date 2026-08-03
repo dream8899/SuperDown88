@@ -41,6 +41,7 @@
 | C | CDP、Playwright/MCP、Chrome 控制或 Computer Use | 有界滚动并收集作品 URL | 仅发现，不抓媒体流 |
 | D | Kimi WebBridge 或同类扩展桥 | 复用用户已登录的现有标签页 | 仅在用户授权且桥已安装时使用 |
 | E | 第三方公开解析站 | 单链接人工验证 | 不作为批量依赖，不调用未公开 API |
+| F | 微信桌面客户端 + 本地捕获工具 | 视频号批量、公开分享页无媒体流 | 系统代理/根证书必须显式批准并可回滚 |
 
 先运行依赖检查：
 
@@ -110,6 +111,11 @@ session file、localStorage、Authorization 头或临时 CDN URL。
 CLI Agent 应输出一条明确的人工交接指令：让用户在现有浏览器中复制作品链接或导出
 页面链接到文本文件。收到文件后，从 `normalize-discovery` 继续；不要要求密码、Cookie、
 浏览器配置目录或远程桌面权限。
+
+微信视频号例外：当前 yt-dlp 不支持 `weixin.qq.com/sph/`。CLI Agent 应先运行一次
+公开无 Cookie 探测；失败后让用户在浏览器单条解析并下载本地文件，随后调用
+`scripts/wechat_channels_register.py` 纳管。完整路径见
+[wechat-channels.md](wechat-channels.md)。
 
 ## 可复现记录
 

@@ -40,6 +40,8 @@
 | 文件数量高于作品数量 | duplicate/derivative | 以唯一 ID + ffprobe 的顶层源文件计数 | 把 remix、审核、修复副本计入下载量 |
 | 账号名被识别成短码前缀 | parser-boundary | 先移除 `CREATOR_`/`creator-reel-序号_` 前缀，再做短码匹配 | 只用“最后一个下划线”或假设短码以 D 开头 |
 | metadata 有新列导致旧脚本失败 | compatibility | 让解析器按表头读取 12 列，同时保留四列回退 | 直接改列顺序而不更新下载器 |
+| 视频号分享页 yt-dlp 报 Unsupported URL | extractor | 单次浏览器解析并下载本地文件；批量需经批准的客户端捕获 | 导出微信 Cookie 或循环刷新分享页 |
+| 视频号解析页浏览器成功但 CLI 超时 | network-path | 保留浏览器单条路径，不承诺纯 CLI；立即校验并登记稳定分享 ID | 反复 curl 或把签名 CDN URL写入 metadata |
 
 ## 完成与复盘清单
 

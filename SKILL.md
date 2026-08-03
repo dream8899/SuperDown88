@@ -1,6 +1,6 @@
 ---
 name: superdown88
-description: Safely and efficiently archive public social-media videos with yt-dlp, prioritizing Instagram and supporting TikTok, YouTube/Shorts, and other supported sites. Use for one video, creator/profile/channel updates, cross-platform channel registries, browser-assisted URL discovery, incremental no-duplicate downloads, verification, or recovery from extractor changes across macOS, Linux, Windows, Codex, CLI, Computer Use, Chrome/CDP, Playwright, Kimi WebBridge, and manual workflows.
+description: Safely and efficiently archive public social-media videos with yt-dlp, prioritizing Instagram and supporting WeChat Channels, TikTok, YouTube/Shorts, and other supported sites. Use for one video, creator/profile/channel updates, cross-platform channel registries, browser-assisted URL discovery, incremental no-duplicate downloads, verification, or recovery from extractor changes across macOS, Linux, Windows, Codex, CLI, Computer Use, Chrome/CDP, Playwright, Kimi WebBridge, and manual workflows.
 ---
 
 # SuperDown88
@@ -13,12 +13,19 @@ before first use on a device or with an unfamiliar Agent. Read
 [references/field-guide.md](references/field-guide.md) when diagnosing a failure,
 choosing a fallback, or changing platform behavior. For reusable multi-account work,
 instantiate [references/task-template.md](references/task-template.md).
+For `weixin.qq.com/sph/` links, read
+[references/wechat-channels.md](references/wechat-channels.md) before transfer; WeChat
+Channels has a platform-specific browser/client handoff because yt-dlp currently lacks a
+native extractor.
 
 ## Non-negotiable boundary
 
 - Permit an authorized logged-in browser to discover canonical post URLs/IDs only.
 - Start every transfer with `--ignore-config --no-cookies`; never pass cookies, browser
   profiles, session files, localStorage, authorization headers, or temporary CDN URLs.
+- For WeChat Channels, permit a browser resolver to consume one public share URL and save
+  one local file, but never persist or hand off its temporary signed media URL. Treat local
+  proxy/root-certificate capture as a separate privileged mode requiring explicit approval.
 - Stop and classify public-transfer failures. Do not escalate to authenticated download,
   proxy rotation, CAPTCHA bypass, user-agent rotation, retries, reload loops, or concurrency.
 
@@ -179,6 +186,7 @@ python3 scripts/supermedia_console.py --root "/absolute/Video_Download" serve --
 
 ```bash
 python3 scripts/test_safe_social_archiver.py
+python3 scripts/test_wechat_channels_register.py
 python3 scripts/test_media_asset_catalog.py
 python3 scripts/test_supermedia_console.py
 python3 /Users/solo/.codex/skills/.system/skill-creator/scripts/quick_validate.py .

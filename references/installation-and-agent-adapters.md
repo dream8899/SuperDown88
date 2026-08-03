@@ -7,6 +7,11 @@
 浏览器、Computer Use、Chrome/CDP、Playwright、Kimi WebBridge 均为可选发现器；它们
 不替代 yt-dlp，也不得导出或传递登录会话。
 
+微信视频号单链接可使用普通浏览器下载后由本地注册脚本纳管。批量捕获通常另需微信桌面
+客户端、本地代理工具和根证书；这些不是默认依赖，不得由 Agent 静默安装。安装前必须
+核验开源仓库和发布包，取得用户对管理员权限、系统代理和证书变更的明确授权，并先写好
+清除代理、退出工具和删除根证书的回滚步骤。
+
 | 系统 | Python | yt-dlp | FFmpeg | 可选 uv |
 |---|---|---|---|---|
 | macOS (Homebrew) | `brew install python` | `brew install yt-dlp` | `brew install ffmpeg` | `brew install uv` |
