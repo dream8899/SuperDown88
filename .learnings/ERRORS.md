@@ -32,6 +32,37 @@
 
 ---
 
+## [ERR-20260803-003] github_non_fast_forward
+
+**Logged**: 2026-08-03T03:10:00Z
+**Priority**: medium
+**Status**: resolved
+**Area**: infra
+
+### Summary
+推送前远端已出现等价的新提交，导致 `main` 非快进拒绝。
+
+### Error
+`[rejected] main -> main (fetch first)`
+
+### Context
+- 本地领先 4 个提交、落后远端 3 个提交。
+- 远端 3 个提交与本地先前的资产中心提交内容等价，但哈希不同。
+
+### Suggested Fix
+禁止强推；先 fetch 和检查双方提交，再 rebase 到 `origin/main`。Git 会跳过等价提交，
+只重放本次新增改动。
+
+### Metadata
+- Reproducible: no
+- Related Files: .git
+
+### Resolution
+- **Resolved**: 2026-08-03T03:10:00Z
+- **Notes**: 已安全 rebase，三个等价提交被自动跳过。
+
+---
+
 ## [ERR-20260803-002] skill_quick_validate_missing_pyyaml
 
 **Logged**: 2026-08-03T03:05:00Z
