@@ -32,6 +32,33 @@
 
 ---
 
+## [ERR-20260803-004] git_status_wrong_workdir
+
+**Logged**: 2026-08-03T03:12:00Z
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+最终核对从媒体工作区而非 Skill 仓库运行 Git 命令。
+
+### Error
+`fatal: not a git repository`
+
+### Suggested Fix
+所有 SuperDown88 Git 命令显式使用 `git -C /absolute/skill/path` 或将工作目录设为 Skill
+仓库；媒体目录核对与 Git 核对分开执行。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git
+
+### Resolution
+- **Resolved**: 2026-08-03T03:12:00Z
+- **Notes**: 已从正确仓库目录重新核对。
+
+---
+
 ## [ERR-20260803-003] github_non_fast_forward
 
 **Logged**: 2026-08-03T03:10:00Z
