@@ -32,6 +32,60 @@
 
 ---
 
+## [ERR-20260803-006] api_push_temp_cleanup_rejected
+
+**Logged**: 2026-08-03T04:20:00Z
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+Git Data API 备用推送命令因包含临时目录的 `rm` 清理而被安全策略拒绝。
+
+### Error
+`rm -f style commands are not permitted`
+
+### Suggested Fix
+API 请求改用内存 JSON 和标准输入，不创建或删除临时文件；不放宽删除策略。
+
+### Metadata
+- Reproducible: yes
+- Related Files: .git
+- Promotion: forbidden; environment-local implementation error only
+
+### Resolution
+- **Resolved**: 2026-08-03T04:20:00Z
+- **Notes**: 后续改用纯内存 GitHub API 编排。
+
+---
+
+## [ERR-20260803-005] controlled_evolution_dot_path
+
+**Logged**: 2026-08-03T04:00:00Z
+**Priority**: low
+**Status**: resolved
+**Area**: tests
+
+### Summary
+受控进化守卫错误移除了 `.learnings/` 的前导点，候选区被误判为核心区。
+
+### Error
+`assertFalse(is_protected(".learnings/candidate.md"))` 失败。
+
+### Suggested Fix
+只逐段移除明确的 `./` 前缀，不使用会删除任意点和斜杠字符的 `lstrip("./")`。
+
+### Metadata
+- Reproducible: yes
+- Related Files: scripts/controlled_evolution_guard.py
+- Promotion: forbidden; implementation-local error only
+
+### Resolution
+- **Resolved**: 2026-08-03T04:00:00Z
+- **Notes**: 三个 Skill 的守卫实现和回归测试已同步修正。
+
+---
+
 ## [ERR-20260803-004] git_status_wrong_workdir
 
 **Logged**: 2026-08-03T03:12:00Z

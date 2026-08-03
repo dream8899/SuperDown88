@@ -46,6 +46,6 @@
 ## 完成与复盘清单
 
 完成一轮前确认：每个当前可发现的可访问 ID 都有验证文件；终态失败有类别；metadata、
-README、archive、batch log、registry 同步；无活动下载或临时文件；新经验只在被一次真实
-试验和验证支持时才写回 Skill。平台更新后先升级 yt-dlp、跑测试、一条公开试下载，再修改
-任何平台特定规则。
+README、archive、batch log、registry 同步；无活动下载或临时文件；新经验只写为隔离
+候选，不在运行任务中写回 Skill。平台更新后先升级 yt-dlp、跑测试和一条公开试下载；若仍
+需改规则，另开受控维护任务，按 `controlled-evolution.md` 审批、测试和回滚。

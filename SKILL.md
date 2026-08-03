@@ -155,6 +155,14 @@ When a platform changes, stop, run `doctor`, update yt-dlp only with approval, r
 tests, then one public dry run and one real public item. Patch only the remaining proven
 need; do not reproduce extractor logic or make iGram/private APIs a dependency.
 
+Self-improvement is controlled. Task runs may append evidence-only candidates, but must
+never rewrite this file, scripts, references, templates, schemas, safety boundaries, or
+defaults. Runtime metadata and account state are not Skill knowledge. Before proposing or
+applying any learned change, read
+[references/controlled-evolution.md](references/controlled-evolution.md); core changes require
+a separate maintenance task, a pre-committed human approval record, tests, diff review, and
+`scripts/controlled_evolution_guard.py`. Never fabricate approval or promote by recurrence.
+
 Every Skill update must be published and synchronized to all existing local installations
 before the task is considered complete. Run the local sync scanner after committing; it
 updates only directories whose frontmatter is `name: superdown88`, never deletes target
@@ -187,6 +195,7 @@ python3 scripts/supermedia_console.py --root "/absolute/Video_Download" serve --
 ```bash
 python3 scripts/test_safe_social_archiver.py
 python3 scripts/test_wechat_channels_register.py
+python3 scripts/test_controlled_evolution_guard.py
 python3 scripts/test_media_asset_catalog.py
 python3 scripts/test_supermedia_console.py
 python3 /Users/solo/.codex/skills/.system/skill-creator/scripts/quick_validate.py .
