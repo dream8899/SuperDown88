@@ -32,6 +32,35 @@
 
 ---
 
+## [ERR-20260803-007] github_git_transport_and_commit_newline
+
+**Logged**: 2026-08-03T04:35:00Z
+**Priority**: low
+**Status**: resolved
+**Area**: infra
+
+### Summary
+Git HTTPS 推送在当前环境静默中断；Git Data API 首次提交因消息末尾换行不同而产生不同 SHA。
+
+### Error
+- `git push` 未返回退出码，远端引用未前进。
+- API 树 SHA 一致，但提交 SHA 不一致，因此门禁拒绝更新分支。
+
+### Suggested Fix
+停止重复 Git 重试；使用 GitHub API 时先校验父提交与树 SHA，并保留本地提交消息末尾换行。
+只有 API 提交 SHA 与本地 SHA 完全一致时才以 `force=false` 更新引用。
+
+### Metadata
+- Reproducible: environment-dependent
+- Related Files: .git
+- Promotion: forbidden; transport-specific candidate only
+
+### Resolution
+- **Resolved**: 2026-08-03T04:35:00Z
+- **Notes**: 远端与本地最终提交 SHA 完全一致。
+
+---
+
 ## [ERR-20260803-006] api_push_temp_cleanup_rejected
 
 **Logged**: 2026-08-03T04:20:00Z
